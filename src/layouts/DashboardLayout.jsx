@@ -32,7 +32,7 @@ const DashboardLayout = ({ children }) => {
       roles: ["admin"],
     },
     {
-      name: "All Leads",
+      name: "Leads Management",
       path: "/leads",
       icon: <HiUsers />,
       roles: ["admin"],

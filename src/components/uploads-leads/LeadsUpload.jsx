@@ -6,7 +6,7 @@ import {
   Loader2,
   FileSpreadsheet,
 } from "lucide-react";
-import {leadsUpload} from '../../api/routes.js'
+import { leadsUpload } from "../../api/routes.js";
 
 function LeadsUpload() {
   const [file, setFile] = useState(null);
@@ -30,11 +30,13 @@ function LeadsUpload() {
 
     try {
       const response = await leadsUpload(formData);
+      console.log("response", response);
       setUploadStatus("success");
-      setMessage(response.data.message);
+      setMessage(response.message || response.data?.message);
       setFile(null);
       setCampaignName("");
     } catch (error) {
+      console.log("error", error);
       setUploadStatus("error");
       setMessage(error.response?.data?.message || "Upload failed");
     }

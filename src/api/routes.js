@@ -18,12 +18,53 @@ export const adminRegister = async (credentials) => {
   }
 };
 
+export const StaffRegister = async (credentials) => {
+  try {
+    const response = await axiosInstance.post("/users/create-staff", credentials);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const StaffVerify = async (credentials) => {
+  try {
+    const response = await axiosInstance.post("/users/verify-staff", credentials);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getAllStaff = async () => {
+  try {
+    const response = await axiosInstance.get(
+      "/users/staff",
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // ------------  LEADS UPLOAD  -----------------------------
 
 export const leadsUpload = async (credentials) => {
   try {
     const response = await axiosInstance.post(
       "/leads/upload",
+      credentials,
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const assignLeads = async (credentials) => {
+  try {
+    const response = await axiosInstance.put(
+      "/leads/assign",
       credentials,
     );
     return response.data;

@@ -14,6 +14,7 @@ import ProtectedRoute from "./api/ProtectedRoute.jsx";
 
 import LeadsUpload from "./components/uploads-leads/LeadsUpload.jsx";
 import Leads from "./components/leads/Leads.jsx";
+import Staff from "./components/staff/Staff.jsx";
 function App() {
   return (
     <>
@@ -34,6 +35,7 @@ function App() {
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/upload-leads" element={<LeadsUpload />} />
                     <Route path="/leads" element={<Leads />} />
+                    <Route path="/staff" element={<Staff />} />
 
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
