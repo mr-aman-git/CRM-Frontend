@@ -1,0 +1,29 @@
+name: Deploy Frontend to VPS
+
+on:
+  push:
+    branches:
+      - main  # Jab bhi main branch pe push ho, ye chale
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Executing remote ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd /var/www/crm/frontend
+            git pull origin main
+            
+            # GitHub Secret se .env file banana (sirf ek variable hai aapka)
+            echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" > .env
+            
+            # Nayi image build karke container restart karna
+            docker compose up -d --build
