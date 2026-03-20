@@ -18,6 +18,9 @@ export const adminRegister = async (credentials) => {
   }
 };
 
+
+// ------------  STAFF ROUTES  -----------------------------
+
 export const StaffRegister = async (credentials) => {
   try {
     const response = await axiosInstance.post("/users/create-staff", credentials);
@@ -46,6 +49,31 @@ export const getAllStaff = async () => {
     throw error;
   }
 };
+
+export const getStaffLeads = async () => {
+  try {
+    const response = await axiosInstance.get(
+      "/leads/my-leads",
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const remarkLeads = async ( id,credentials) => {
+  try {
+    const response = await axiosInstance.put(
+      `/leads/update-status/${id}`,
+      credentials,
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
 
 // ------------  LEADS UPLOAD  -----------------------------
 
