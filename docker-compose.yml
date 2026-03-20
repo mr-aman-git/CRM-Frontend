@@ -6,7 +6,7 @@ services:
     container_name: crm-frontend
     image: crm-frontend-image
     ports:
-      - "3002:3000"  # Aapka frontend jis port pe chalta ho
+      - "3002:3000"  #  Aapka frontend jis port pe chalta ho
     env_file:
       - .env
     restart: always
