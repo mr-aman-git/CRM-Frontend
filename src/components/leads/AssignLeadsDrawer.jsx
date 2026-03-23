@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, UserPlus, Search, CheckCircle, Loader2 } from "lucide-react";
 import { getAllStaff, assignLeads } from "../../api/routes.js";
-
+import { toast } from "react-toastify";
 const AssignLeadsDrawer = ({ isOpen, onClose, selectedLeadIds, onSuccess }) => {
   const [staffList, setStaffList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -34,12 +34,14 @@ const AssignLeadsDrawer = ({ isOpen, onClose, selectedLeadIds, onSuccess }) => {
         staffId: staffId,
       };
       await assignLeads(payload);
-      onSuccess(`${selectedLeadIds.length} Leads assigned successfully!`);
+      toast.success(`${selectedLeadIds.length} Leads assigned successfully!`);
       onClose();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       alert("Assignment failed. Try again.");
       console.log(error);
-      
     } finally {
       setAssigningId(null);
     }
@@ -124,7 +126,7 @@ const AssignLeadsDrawer = ({ isOpen, onClose, selectedLeadIds, onSuccess }) => {
                     <button
                       onClick={() => handleAssign(staff._id)}
                       disabled={assigningId === staff._id}
-                      className="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-700 transition flex items-center"
+                      className="px-4 py-2 cursor-pointer bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-700 transition flex items-center"
                     >
                       {assigningId === staff._id ? (
                         <Loader2 size={14} className="animate-spin" />
