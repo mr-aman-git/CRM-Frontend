@@ -75,7 +75,7 @@ const Leads = () => {
 
   return (
     <div className="md:p-6 bg-gray-50 min-h-screen font-sans">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center ">
         {/* <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
           Leads Management
         </h1> */}
@@ -133,12 +133,12 @@ const Leads = () => {
           <tbody className="divide-y divide-gray-100">
             {currentLeads.map((lead) => (
               <tr key={lead._id} className="hover:bg-blue-50/50 transition">
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 ">
                   <input
                     type="checkbox"
                     checked={selectedIds.includes(lead._id)}
                     onChange={() => toggleSelect(lead._id)}
-                    className="rounded text-blue-600 focus:ring-blue-500"
+                    className="rounded text-blue-600 focus:ring-blue-500 cursor-pointer"
                   />
                 </td>
                 <td className="px-6 py-4">

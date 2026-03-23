@@ -81,7 +81,7 @@ const DashboardLayout = ({ children }) => {
         } lg:translate-x-0 transition-transform duration-300 ease-in-out`}
       >
         <div className="p-6 text-2xl font-bold text-blue-600 border-b">
-          CRM
+          CRM Ornsoar
         </div>
 
         <nav className="mt-6 px-4 space-y-2">

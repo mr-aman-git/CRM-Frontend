@@ -38,6 +38,8 @@ const AssignLeadsDrawer = ({ isOpen, onClose, selectedLeadIds, onSuccess }) => {
       onClose();
     } catch (error) {
       alert("Assignment failed. Try again.");
+      console.log(error);
+      
     } finally {
       setAssigningId(null);
     }
