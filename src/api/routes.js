@@ -112,3 +112,12 @@ export const getAllLeads = async () => {
   }
 };
 
+export const bulkLeadsDelete = async (data) => {
+  try {
+    const response = await axiosInstance.post("/leads/bulk-delete", data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+

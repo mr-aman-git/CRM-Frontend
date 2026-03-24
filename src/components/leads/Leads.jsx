@@ -66,6 +66,26 @@ const Leads = () => {
     );
   };
 
+
+const isAllSelected = currentLeads.length > 0 && currentLeads.every(lead => selectedIds.includes(lead._id));
+
+const handleSelectAll = () => {
+  if (isAllSelected) {
+    // Agar sab selected hain, toh current page wali IDs ko filter karke hata dein
+    const currentPageIds = currentLeads.map(l => l._id);
+    setSelectedIds(prev => prev.filter(id => !currentPageIds.includes(id)));
+  } else {
+    // Agar sab selected nahi hain, toh current page wali saari IDs add kar dein (duplicate avoid karke)
+    const newSelected = [...selectedIds];
+    currentLeads.forEach(lead => {
+      if (!newSelected.includes(lead._id)) {
+        newSelected.push(lead._id);
+      }
+    });
+    setSelectedIds(newSelected);
+  }
+};
+
   if (loading)
     return (
       <div className="flex h-screen items-center justify-center">
@@ -121,7 +141,15 @@ const Leads = () => {
           <thead className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
             <tr>
               <th className="px-6 py-4">
-                <input type="checkbox" className="rounded text-blue-600" />
+                <input
+                  type="checkbox"
+                  className="rounded text-blue-600 cursor-pointer w-4 h-4 focus:ring-blue-500"
+                  checked={
+                    currentLeads.length > 0 &&
+                    currentLeads.every((lead) => selectedIds.includes(lead._id))
+                  }
+                  onChange={handleSelectAll}
+                />
               </th>
               <th className="px-6 py-4">Lead Name</th>
               <th className="px-6 py-4 hidden md:table-cell">Contact</th>
@@ -132,13 +160,16 @@ const Leads = () => {
           </thead>
           <tbody className="divide-y divide-gray-100">
             {currentLeads.map((lead) => (
-              <tr key={lead._id} className="hover:bg-blue-50/50 transition">
+              <tr
+                key={lead._id}
+                className={`hover:bg-blue-50/50 transition ${selectedIds.includes(lead._id) ? "bg-blue-50/30" : ""}`}
+              >
                 <td className="px-6 py-4 ">
                   <input
                     type="checkbox"
                     checked={selectedIds.includes(lead._id)}
                     onChange={() => toggleSelect(lead._id)}
-                    className="rounded text-blue-600 focus:ring-blue-500 cursor-pointer"
+                    className="rounded text-blue-600 focus:ring-blue-500 cursor-pointer w-4 h-4"
                   />
                 </td>
                 <td className="px-6 py-4">
