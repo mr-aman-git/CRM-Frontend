@@ -19,7 +19,7 @@ export default defineConfig({
       },
 
       manifest: {
-        name: "Ornsoar",
+        name: "Ornsoar_CRM",
         short_name: "Ornsoar",
         description: "Ornsoar CRM",
         theme_color: "#ffffff",
