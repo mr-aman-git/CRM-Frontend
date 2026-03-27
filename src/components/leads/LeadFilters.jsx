@@ -26,6 +26,8 @@ const LeadFilters = ({ filters, setFilters }) => {
         <option value="">All Status</option>
         <option value="Pending">Pending</option>
         <option value="Follow Up">Follow Up</option>
+        <option value="Closed">Busy</option>
+        <option value="Closed">Interested</option>
         <option value="Closed">Closed</option>
       </select>
     </div>
