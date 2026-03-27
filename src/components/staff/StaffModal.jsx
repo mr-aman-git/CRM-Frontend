@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Lock, User, Loader2, Mail } from "lucide-react";
+import { X, Send, Lock, User, Loader2, Mail, MapPin } from "lucide-react";
 import { StaffRegister, StaffVerify } from "../../api/routes";
-
+import { toast } from "react-toastify";
 const StaffModal = ({
   isOpen,
   onClose,
@@ -15,6 +15,7 @@ const StaffModal = ({
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    branch: "",
     password: "",
     otp: "",
   });
@@ -22,17 +23,28 @@ const StaffModal = ({
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    // Frontend Validation for Branch
+    if (!formData.branch) {
+      return toast.error("Please select a branch location");
+    }
+
     setLoading(true);
     try {
-      await StaffRegister({
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      });
-      setCurrentEmail(formData.email);
+      // Destructuring to keep it clean
+      const { name, email, branch, password } = formData;
+
+      const res = await StaffRegister({ name, email, branch, password });
+
+      console.log("Registration Success:", res);
+
+      toast.success("Registration successful! Please verify OTP.");
+      setCurrentEmail(email);
       setStep("verify");
     } catch (error) {
-      alert(error.response?.data?.message || "Registration failed");
+      const errorMsg = error.response?.data?.message || "Registration failed";
+      toast.error(errorMsg);
+      console.error("Reg Error:", error);
     } finally {
       setLoading(false);
     }
@@ -40,19 +52,28 @@ const StaffModal = ({
 
   const handleVerify = async (e) => {
     e.preventDefault();
+
+    if (!formData.otp) {
+      return toast.warn("Please enter the OTP");
+    }
     setLoading(true);
     try {
       await StaffVerify({ email: currentEmail, otp: formData.otp });
-      alert("Staff Verified Successfully!");
+
+      toast.success("Staff Verified Successfully! 🎉");
+
+      // Cleanup and Refresh
       refreshList();
       onClose();
     } catch (error) {
-      alert("Invalid OTP");
+      const errorMsg =
+        error.response?.data?.message || "Invalid or expired OTP";
+      toast.error(errorMsg);
+      console.error("Verify Error:", error);
     } finally {
       setLoading(false);
     }
   };
-
   if (!isOpen) return null;
 
   return (
@@ -107,6 +128,43 @@ const StaffModal = ({
                       />
                     </div>
                   </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-gray-400 uppercase ml-1">
+                      Branch Location
+                    </label>
+                    <div className="relative">
+                      {/* Icon changed to MapPin for location feel */}
+                      <MapPin
+                        className="absolute left-3 top-3 text-gray-400 pointer-events-none"
+                        size={18}
+                      />
+
+                      <select
+                        required
+                        className="w-full pl-10 pr-4 py-3 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-blue-500 appearance-none cursor-pointer"
+                        value={formData.branch}
+                        onChange={(e) =>
+                          setFormData({ ...formData, branch: e.target.value })
+                        }
+                      >
+                        <option value="" disabled>
+                          Select Branch
+                        </option>
+                        <option value="madurai">Madurai</option>
+                        <option value="delhi">Delhi</option>
+                        <option value="tamil-nadu">Chennai</option>
+                        <option value="tamil-nadu">Coimbatore</option>
+                        <option value="tamil-nadu">Ramanathapuram</option>
+                      </select>
+                      {/* <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+      <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div> */}
+                    </div>
+                  </div>
+
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-gray-400 uppercase ml-1">
                       Email Address
