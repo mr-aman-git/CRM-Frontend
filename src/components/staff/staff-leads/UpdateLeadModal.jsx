@@ -54,7 +54,7 @@ const UpdateLeadModal = ({ lead, isOpen, onClose, onRefresh }) => {
                 <option value="Busy">Busy</option>
                 <option value="Follow Up">Follow Up</option>
                 <option value="Interested">Interested</option>
-                <option value="Interested">Not Interested</option>
+                <option value="Not-Interested">Not Interested</option>
                 <option value="Closed">Closed</option>
               </select>
             </div>
