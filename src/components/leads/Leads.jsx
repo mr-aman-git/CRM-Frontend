@@ -12,7 +12,7 @@ import LeadFilters from "./LeadFilters";
 // import AssignLeadsDrawer from "./AssignLeadsDrawer";
 // Lazy loading the modal for performance
 const LeadDetailModal = lazy(() => import("./LeadDetailModal"));
-
+import { Eye } from "lucide-react";
 const Leads = () => {
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,40 +20,66 @@ const Leads = () => {
   const [selectedIds, setSelectedIds] = useState([]);
   const [viewingLead, setViewingLead] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filters, setFilters] = useState({ phone: "", city: "", status: "" });
+  const [filters, setFilters] = useState({
+    phone: "",
+    city: "",
+    status: "",
+    date: null,
+  });
+  const [totalLeads, setTotalLeads] = useState(0);
   // const [isAssignDrawerOpen, setIsAssignDrawerOpen] = useState(false);
   const leadsPerPage = 20;
 
   useEffect(() => {
     fetchLeads();
-  }, []);
+  }, [currentPage, filters]);
 
   const fetchLeads = async () => {
     setLoading(true);
     const res = await getAllLeads();
+    console.log(res);
+
     setLeads(res); // Assuming direct array or res.data
     setLoading(false);
   };
 
   // Logic: Separate and Filter
+
   const filteredLeads = leads.filter((lead) => {
+    // 1. Tab Match (Assigned vs Unassigned)
     const isTabMatch =
       activeTab === "assigned" ? lead.assignedTo : !lead.assignedTo;
+
+    // 2. Phone Match
     const isPhoneMatch = lead.phone.includes(filters.phone);
+
+    // 3. City Match
     const isCityMatch = lead.city
       ?.toLowerCase()
       .includes(filters.city.toLowerCase());
+
+    // 4. Status Match
     const isStatusMatch = filters.status
       ? lead.status === filters.status
       : true;
-    return isTabMatch && isPhoneMatch && isCityMatch && isStatusMatch;
-  });
 
-  // const handleAssignSuccess = (msg) => {
-  //   alert(msg); // Yahan aap toast notification bhi laga sakte hain
-  //   setSelectedIds([]); // Selection clear karein
-  //   fetchLeads(); // Table refresh karein taaki assigned leads 'Assigned' tab mein chali jayein
-  // };
+    // 5. Date Match (The Fix)
+    let matchesDate = true;
+    if (filters.date) {
+      const d = new Date(lead.createdAt);
+      const s = new Date(filters.date);
+
+      // Sirf Year, Month aur Date compare kar rahe hain (Time ignore karke)
+      const leadDateLocal = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+      const selectedDateLocal = `${s.getFullYear()}-${s.getMonth()}-${s.getDate()}`;
+
+      matchesDate = leadDateLocal === selectedDateLocal;
+    }
+
+    return (
+      isTabMatch && isPhoneMatch && isCityMatch && isStatusMatch && matchesDate
+    );
+  });
 
   // Pagination Logic
   const indexOfLastLead = currentPage * leadsPerPage;
@@ -66,25 +92,28 @@ const Leads = () => {
     );
   };
 
+  const isAllSelected =
+    currentLeads.length > 0 &&
+    currentLeads.every((lead) => selectedIds.includes(lead._id));
 
-const isAllSelected = currentLeads.length > 0 && currentLeads.every(lead => selectedIds.includes(lead._id));
-
-const handleSelectAll = () => {
-  if (isAllSelected) {
-    // Agar sab selected hain, toh current page wali IDs ko filter karke hata dein
-    const currentPageIds = currentLeads.map(l => l._id);
-    setSelectedIds(prev => prev.filter(id => !currentPageIds.includes(id)));
-  } else {
-    // Agar sab selected nahi hain, toh current page wali saari IDs add kar dein (duplicate avoid karke)
-    const newSelected = [...selectedIds];
-    currentLeads.forEach(lead => {
-      if (!newSelected.includes(lead._id)) {
-        newSelected.push(lead._id);
-      }
-    });
-    setSelectedIds(newSelected);
-  }
-};
+  const handleSelectAll = () => {
+    if (isAllSelected) {
+      // Agar sab selected hain, toh current page wali IDs ko filter karke hata dein
+      const currentPageIds = currentLeads.map((l) => l._id);
+      setSelectedIds((prev) =>
+        prev.filter((id) => !currentPageIds.includes(id)),
+      );
+    } else {
+      // Agar sab selected nahi hain, toh current page wali saari IDs add kar dein (duplicate avoid karke)
+      const newSelected = [...selectedIds];
+      currentLeads.forEach((lead) => {
+        if (!newSelected.includes(lead._id)) {
+          newSelected.push(lead._id);
+        }
+      });
+      setSelectedIds(newSelected);
+    }
+  };
 
   if (loading)
     return (
@@ -95,34 +124,6 @@ const handleSelectAll = () => {
 
   return (
     <div className="md:p-6 bg-gray-50 min-h-screen font-sans">
-      <div className="flex justify-between items-center ">
-        {/* <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-          Leads Management
-        </h1> */}
-
-        {/* {selectedIds.length > 0 && (
-          <div className="flex space-x-3">
-            <button className="flex items-center px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition">
-              <Trash2 size={18} className="mr-2" /> Delete {selectedIds.length}
-            </button>
-            <button
-              onClick={() => setIsAssignDrawerOpen(true)}
-              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-lg shadow-blue-200"
-            >
-              <UserCheck size={18} className="mr-2" /> Assign{" "}
-              {selectedIds.length}
-            </button>
-          </div>
-        )} */}
-
-        {/* <AssignLeadsDrawer
-          isOpen={isAssignDrawerOpen}
-          onClose={() => setIsAssignDrawerOpen(false)}
-          selectedLeadIds={selectedIds}
-          onSuccess={handleAssignSuccess}
-        /> */}
-      </div>
-
       <LeadTabs
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -134,7 +135,7 @@ const handleSelectAll = () => {
         }}
       />
 
-      <LeadFilters filters={filters} setFilters={setFilters} />
+      <LeadFilters filters={filters} setFilters={setFilters} leads={leads} />
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <table className="w-full text-left border-collapse ">
@@ -155,6 +156,7 @@ const handleSelectAll = () => {
               <th className="px-6 py-4 hidden md:table-cell">Contact</th>
               <th className="px-6 py-4">City</th>
               <th className="px-6 py-4">Status</th>
+              <th className="px-6 py-4">Staff</th>
               <th className="px-6 py-4 text-right">Action</th>
             </tr>
           </thead>
@@ -193,12 +195,26 @@ const handleSelectAll = () => {
                     {lead.status}
                   </span>
                 </td>
+
+                <td className="px-6 py-4 text-sm font-medium">
+                  {lead.assignedTo ? (
+                    <span className="bg-blue-50 text-blue-700 px-2 py-1 rounded-md text-xs font-bold uppercase border border-blue-100">
+                      @{lead.assignedTo.name}
+                    </span>
+                  ) : (
+                    <span className="text-gray-400 italic text-xs">
+                      Not Assigned
+                    </span>
+                  )}
+                </td>
+
                 <td className="px-6 py-4 text-right">
                   <button
                     onClick={() => setViewingLead(lead)}
-                    className="text-blue-600 hover:text-blue-800 text-sm font-semibold"
+                    title="View Details"
+                    className="inline-flex cursor-pointer items-center gap-2 text-blue-600 hover:text-blue-800 text-sm font-semibold transition-colors"
                   >
-                    View Details
+                    <Eye size={26} />
                   </button>
                 </td>
               </tr>
