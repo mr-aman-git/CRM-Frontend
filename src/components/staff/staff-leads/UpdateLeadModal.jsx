@@ -59,6 +59,23 @@ const UpdateLeadModal = ({ lead, isOpen, onClose, onRefresh }) => {
               </select>
             </div>
 
+            {/* <div>
+              <label className="block text-xs font-bold text-gray-400 uppercase mb-2">
+                Call Type
+              </label>
+              <select
+                value={callType}
+                onChange={(e) => setCallType(e.target.value)}
+                className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 font-medium"
+              >
+                <option value="Not Selected">Not Selected</option>
+                <option value="Hot">Hot</option>
+                <option value="Warm">Warm</option>
+                <option value="Cold">Cold</option>
+                
+              </select>
+            </div> */}
+
             <div>
               <label className="block text-xs font-bold text-gray-400 uppercase mb-2">
                 Add Remark/Comment

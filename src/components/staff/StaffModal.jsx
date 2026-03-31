@@ -153,9 +153,9 @@ const StaffModal = ({
                         </option>
                         <option value="madurai">Madurai</option>
                         <option value="delhi">Delhi</option>
-                        <option value="tamil-nadu">Chennai</option>
-                        <option value="tamil-nadu">Coimbatore</option>
-                        <option value="tamil-nadu">Ramanathapuram</option>
+                        <option value="chennai">Chennai</option>
+                        <option value="coimbatore">Coimbatore</option>
+                        <option value="ramanathapuram">Ramanathapuram</option>
                       </select>
                       {/* <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
       <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

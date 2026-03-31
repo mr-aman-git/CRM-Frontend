@@ -135,7 +135,7 @@ const Leads = () => {
         }}
       />
 
-      <LeadFilters filters={filters} setFilters={setFilters} leads={leads} />
+      <LeadFilters filters={filters} setFilters={setFilters} leads={leads} activeTab={activeTab} />
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <table className="w-full text-left border-collapse ">

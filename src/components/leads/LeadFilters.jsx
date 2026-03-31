@@ -2,8 +2,8 @@ import React, { useMemo } from "react";
 import { Search, MapPin, Filter, Calendar, XCircle, RotateCcw } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-const LeadFilters = ({ filters, setFilters, leads }) => {
+import AutoAssignLeads from "../autoAssign/AutoAssignLeads";
+const LeadFilters = ({ filters, setFilters, leads, activeTab }) => {
   
   const uniqueStatuses = useMemo(() => {
     if (!leads || !Array.isArray(leads)) return [];
@@ -66,6 +66,12 @@ const LeadFilters = ({ filters, setFilters, leads }) => {
         />
       </div>
 
+      <div className="relative group">
+        {(activeTab === "unassigned") && (
+          <AutoAssignLeads/>
+        )}
+      </div>
+
       {/* 5. Clear Button */}
       <div className="flex justify-start">
         {(filters.phone || filters.city || filters.status || filters.date) && (
@@ -77,6 +83,8 @@ const LeadFilters = ({ filters, setFilters, leads }) => {
           </button>
         )}
       </div>
+
+      
     </div>
   );
 };

@@ -101,6 +101,18 @@ export const assignLeads = async (credentials) => {
   }
 };
 
+export const autoAssignLeads = async (credentials) => {
+  try {
+    const response = await axiosInstance.put(
+      "/leads/auto-assign",
+      credentials,
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getAllLeads = async () => {
   try {
     const response = await axiosInstance.get(
