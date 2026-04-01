@@ -9,7 +9,7 @@ import {
   MapPin,
 } from "lucide-react";
 import StaffModal from "./StaffModal";
-import StaffFilter from "./StaffFilter"; // Import naya component
+import StaffFilter from "./StaffFilter";
 import { Link } from "react-router-dom";
 
 const Staff = () => {
