@@ -1,82 +1,80 @@
-import './PWABadge.css'
-
-import { useRegisterSW } from 'virtual:pwa-register/react'
+import React from "react";
+import "./PWABadge.css";
+import { useRegisterSW } from "virtual:pwa-register/react";
+import { motion, AnimatePresence } from "framer-motion";
+import { RefreshCw, X, WifiOff, Zap } from "lucide-react";
 
 function PWABadge() {
-  // periodic sync is disabled, change the value to enable it, the period is in milliseconds
-// You can remove onRegisteredSW callback and registerPeriodicSync function
-  const period = 0
-
   const {
     offlineReady: [offlineReady, setOfflineReady],
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
   } = useRegisterSW({
     onRegisteredSW(swUrl, r) {
-      if (period <= 0) return
-      if (r?.active?.state === 'activated') {
-        registerPeriodicSync(period, swUrl, r)
-      }
-      else if (r?.installing) {
-        r.installing.addEventListener('statechange', (e) => {
-          /** @type {ServiceWorker} */
-          const sw = e.target
-          if (sw.state === 'activated')
-            registerPeriodicSync(period, swUrl, r)
-        })
-      }
+      console.log("SW Registered");
     },
-  })
+    onRegisterError(error) {
+      console.error("SW registration error", error);
+    },
+  });
 
-  function close() {
-    setOfflineReady(false)
-    setNeedRefresh(false)
-  }
+  const close = () => {
+    setOfflineReady(false);
+    setNeedRefresh(false);
+  };
 
   return (
-    <div className="PWABadge" role="alert" aria-labelledby="toast-message">
-      { (offlineReady || needRefresh)
-      && (
-        <div className="PWABadge-toast">
-          <div className="PWABadge-message">
-            { offlineReady
-              ? <span id="toast-message">App ready to work offline</span>
-              : <span id="toast-message">New content available, click on reload button to update.</span>}
+    <AnimatePresence>
+      {(offlineReady || needRefresh) && (
+        <motion.div
+          initial={{ opacity: 0, y: 50, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.9 }}
+          className="pwa-toast-container"
+          role="alert"
+        >
+          <div className="pwa-toast-content">
+            <div className="pwa-icon-section">
+              {offlineReady ? (
+                <div className="pwa-icon-bg bg-emerald-100 text-emerald-600">
+                  <WifiOff size={20} />
+                </div>
+              ) : (
+                <div className="pwa-icon-bg bg-blue-100 text-blue-600">
+                  <Zap size={20} />
+                </div>
+              )}
+            </div>
+
+            <div className="pwa-text-section">
+              <h4 className="pwa-title">
+                {offlineReady ? "Offline Ready" : "Update Available"}
+              </h4>
+              <p className="pwa-description">
+                {offlineReady
+                  ? "App is cached and ready to work offline."
+                  : "A new version is available for a better experience."}
+              </p>
+            </div>
+
+            <div className="pwa-actions">
+              {needRefresh && (
+                <button
+                  className="pwa-btn pwa-btn-primary"
+                  onClick={() => updateServiceWorker(true)}
+                >
+                  <RefreshCw size={14} className="mr-1" /> Reload
+                </button>
+              )}
+              <button className="pwa-btn pwa-btn-close" onClick={close}>
+                <X size={16} />
+              </button>
+            </div>
           </div>
-          <div className="PWABadge-buttons">
-            { needRefresh && <button className="PWABadge-toast-button" onClick={() => updateServiceWorker(true)}>Reload</button> }
-            <button className="PWABadge-toast-button" onClick={() => close()}>Close</button>
-          </div>
-        </div>
+        </motion.div>
       )}
-    </div>
-  )
+    </AnimatePresence>
+  );
 }
 
-export default PWABadge
-
-/**
- * This function will register a periodic sync check every hour, you can modify the interval as needed.
- * @param period {number}
- * @param swUrl {string}
- * @param r {ServiceWorkerRegistration}
- */
-function registerPeriodicSync(period, swUrl, r) {
-  if (period <= 0) return
-
-  setInterval(async () => {
-    if ('onLine' in navigator && !navigator.onLine)
-      return
-
-    const resp = await fetch(swUrl, {
-      cache: 'no-store',
-      headers: {
-        'cache': 'no-store',
-        'cache-control': 'no-cache',
-      },
-    })
-
-    if (resp?.status === 200)
-      await r.update()
-  }, period)
-}
+export default PWABadge;
