@@ -38,7 +38,7 @@ const Staff = () => {
     fetchStaff();
   }, []);
 
-  // 2. Filter Logic (useMemo for Performance)
+  // 2. Filter Logic (useMemo for Performance
   const filteredStaff = useMemo(() => {
     return staffList.filter((staff) => {
       const matchesEmail = staff.email
