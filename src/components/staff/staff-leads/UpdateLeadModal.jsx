@@ -5,6 +5,7 @@ import { remarkLeads } from "../../../api/routes.js";
 
 const UpdateLeadModal = ({ lead, isOpen, onClose, onRefresh }) => {
   const [status, setStatus] = useState(lead?.status || "Pending");
+  const [callType, setCallType] = useState(lead?.callType || "Not-Selected");
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -12,7 +13,7 @@ const UpdateLeadModal = ({ lead, isOpen, onClose, onRefresh }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await remarkLeads(lead._id, { status, comment });
+      await remarkLeads(lead._id, { status, callType, comment });
       onRefresh();
       onClose();
     } catch (error) {
@@ -59,7 +60,7 @@ const UpdateLeadModal = ({ lead, isOpen, onClose, onRefresh }) => {
               </select>
             </div>
 
-            {/* <div>
+            <div>
               <label className="block text-xs font-bold text-gray-400 uppercase mb-2">
                 Call Type
               </label>
@@ -68,13 +69,13 @@ const UpdateLeadModal = ({ lead, isOpen, onClose, onRefresh }) => {
                 onChange={(e) => setCallType(e.target.value)}
                 className="w-full p-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 font-medium"
               >
-                <option value="Not Selected">Not Selected</option>
+                <option value="Not-Selected">Not Selected</option>
                 <option value="Hot">Hot</option>
                 <option value="Warm">Warm</option>
                 <option value="Cold">Cold</option>
                 
               </select>
-            </div> */}
+            </div>
 
             <div>
               <label className="block text-xs font-bold text-gray-400 uppercase mb-2">

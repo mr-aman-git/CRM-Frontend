@@ -73,6 +73,15 @@ export const remarkLeads = async ( id,credentials) => {
   }
 };
 
+export const getStaffStats = async (staffId, filter = 'all') => {
+  try {
+    const response = await axiosInstance.get(`/staff/stats/${staffId}?filter=${filter}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 
 
 // ------------  LEADS UPLOAD  -----------------------------

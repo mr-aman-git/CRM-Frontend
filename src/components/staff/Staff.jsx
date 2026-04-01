@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import StaffModal from "./StaffModal";
 import StaffFilter from "./StaffFilter"; // Import naya component
+import { Link } from "react-router-dom";
 
 const Staff = () => {
   const [staffList, setStaffList] = useState([]);
@@ -81,9 +82,11 @@ const Staff = () => {
         </div>
       ) : (
         <>
+        
           {filteredStaff.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredStaff.map((staff) => (
+                <Link to={`/staff/${staff._id}`}>
                 <div
                   key={staff._id}
                   className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
@@ -125,7 +128,9 @@ const Staff = () => {
                     </div>
                   </div>
                 </div>
+                 </Link>
               ))}
+              
             </div>
           ) : (
             <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-gray-200">

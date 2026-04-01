@@ -15,7 +15,7 @@ import ProtectedRoute from "./api/ProtectedRoute.jsx";
 import LeadsUpload from "./components/uploads-leads/LeadsUpload.jsx";
 import Leads from "./components/leads/Leads.jsx";
 import Staff from "./components/staff/Staff.jsx";
-
+import StaffPage from "./components/staff/sepratePage/StaffPage.jsx";
 import MyLeads from "./components/staff/staff-leads/MyLeads.jsx";
 function App() {
   return (
@@ -39,6 +39,7 @@ function App() {
                     <Route path="/leads" element={<Leads />} />
                     <Route path="/staff" element={<Staff />} />
                     <Route path="/my-leads" element={<MyLeads />} />
+                    <Route path="staff/:id" element={<StaffPage />} />
 
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
