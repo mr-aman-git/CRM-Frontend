@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 import DashboardLayout from "./layouts/DashboardLayout.jsx";
 import Login from "./components/auth/Login.jsx";
 import Register from "./components/auth/Register.jsx";
-import Dashboard from "./components/pages/Dashboard.jsx";
+import Dashboard from "./components/dashboard/Dashboard.jsx";
 import ProtectedRoute from "./api/ProtectedRoute.jsx";
 
 import LeadsUpload from "./components/uploads-leads/LeadsUpload.jsx";
@@ -17,6 +17,8 @@ import Leads from "./components/leads/Leads.jsx";
 import Staff from "./components/staff/Staff.jsx";
 import StaffPage from "./components/staff/sepratePage/StaffPage.jsx";
 import MyLeads from "./components/staff/staff-leads/MyLeads.jsx";
+import DetailedReport from "./components/dashboard/page/DetailedReport.jsx";
+import SystemAudit from "./components/dashboard/page/SystemAudit.jsx";
 function App() {
   return (
     <>
@@ -40,6 +42,8 @@ function App() {
                     <Route path="/staff" element={<Staff />} />
                     <Route path="/my-leads" element={<MyLeads />} />
                     <Route path="staff/:id" element={<StaffPage />} />
+                    <Route path="/detailed-report" element={<DetailedReport />} />
+                    <Route path="/system-audit" element={<SystemAudit />} />
 
                     <Route path="*" element={<Navigate to="/" replace />} />
                   </Routes>
