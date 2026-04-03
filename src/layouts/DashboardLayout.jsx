@@ -23,7 +23,13 @@ const DashboardLayout = ({ children }) => {
       name: "Dashboard",
       path: "/",
       icon: <HiViewGrid />,
-      roles: ["admin", "staff"],
+      roles: ["admin"],
+    },
+    {
+      name: "Dashboard",
+      path: "/",
+      icon: <HiViewGrid />,
+      roles: ["staff"],
     },
     {
       name: "Upload Leads",
