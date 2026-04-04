@@ -74,7 +74,7 @@ const Dashboard = () => {
         </div>
 
         {/* Right Side: Smart Lead Insights Widget */}
-        <div className="lg:col-span-1 relative bg-gradient-to-br from-indigo-600 via-blue-600 to-indigo-800 rounded-[2.5rem] p-10 text-white shadow-2xl shadow-blue-200/50 overflow-hidden flex flex-col justify-between border border-white/10">
+        <div className="lg:col-span-1 relative bg-linear-to-br from-indigo-600 via-blue-600 to-indigo-800 rounded-[2.5rem] p-10 text-white shadow-2xl shadow-blue-200/50 overflow-hidden flex flex-col justify-between border border-white/10">
           {/* Background Decorative Circles (Optional for Premium Feel) */}
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-400/20 rounded-full blur-2xl"></div>
@@ -114,7 +114,7 @@ const Dashboard = () => {
 
           {/* Buttons Section */}
           <div className="flex flex-wrap gap-4 mt-10 relative z-10">
-            <Link to="/" className="flex-1">
+            <Link to="/detailed-report" className="flex-1">
               <button className="w-full bg-white text-indigo-700 px-6 py-4 rounded-2xl font-black text-sm shadow-xl shadow-indigo-900/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2 group">
                 Detailed Report
                 <ArrowRight
