@@ -27,7 +27,7 @@ const DashboardLayout = ({ children }) => {
     },
     {
       name: "Dashboard",
-      path: "/",
+      path: "/dashboard",
       icon: <HiViewGrid />,
       roles: ["staff"],
     },

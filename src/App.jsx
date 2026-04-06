@@ -19,6 +19,7 @@ import StaffPage from "./components/staff/sepratePage/StaffPage.jsx";
 import MyLeads from "./components/staff/staff-leads/MyLeads.jsx";
 import DetailedReport from "./components/dashboard/page/DetailedReport.jsx";
 import SystemAudit from "./components/dashboard/page/SystemAudit.jsx";
+import StaffDashboard from "./components/staff/dashboard/StaffDashboard.jsx";
 function App() {
   return (
     <>
@@ -42,7 +43,11 @@ function App() {
                     <Route path="/staff" element={<Staff />} />
                     <Route path="/my-leads" element={<MyLeads />} />
                     <Route path="staff/:id" element={<StaffPage />} />
-                    <Route path="/detailed-report" element={<DetailedReport />} />
+                    <Route path="/dashboard" element={<StaffDashboard />} />
+                    <Route
+                      path="/detailed-report"
+                      element={<DetailedReport />}
+                    />
                     <Route path="/system-audit" element={<SystemAudit />} />
 
                     <Route path="*" element={<Navigate to="/" replace />} />
