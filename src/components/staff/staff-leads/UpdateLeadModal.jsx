@@ -56,6 +56,10 @@ const UpdateLeadModal = ({ lead, isOpen, onClose, onRefresh }) => {
                 <option value="Follow Up">Follow Up</option>
                 <option value="Interested">Interested</option>
                 <option value="Not-Interested">Not Interested</option>
+                <option value="Not-Picked">Not Picked</option>
+                <option value="Switch-Off">Switch Off</option>
+                <option value="Invalid-Number">Invalid Number</option>
+                <option value="Call-Back-Due">Call Back Due</option>
                 <option value="Closed">Closed</option>
               </select>
             </div>
@@ -73,7 +77,6 @@ const UpdateLeadModal = ({ lead, isOpen, onClose, onRefresh }) => {
                 <option value="Hot">Hot</option>
                 <option value="Warm">Warm</option>
                 <option value="Cold">Cold</option>
-                
               </select>
             </div>
 
