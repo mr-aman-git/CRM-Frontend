@@ -15,6 +15,12 @@ import {
   Loader2,
   Calendar,
   Filter,
+  UserMinus,
+  PowerOff,
+  AlertOctagon,
+  PhoneOff,
+  History,
+  TrendingUp,
 } from "lucide-react";
 import { getStaffStats } from "../../../api/routes.js";
 import { toast } from "react-toastify";
@@ -34,6 +40,7 @@ const StaffPage = () => {
       try {
         const res = await getStaffStats(id, filter);
         setData(res);
+        console.log("res", res);
       } catch (err) {
         toast.error("Staff details not found");
         navigate("/staff");
@@ -141,70 +148,104 @@ const StaffPage = () => {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+          {/* Left Highlight Card */}
           <motion.div
             whileHover={{ y: -5 }}
-            className="lg:col-span-1 bg-gray-900 text-white rounded-4xl p-6 shadow-xl flex flex-col justify-between"
+            className="lg:col-span-1 bg-gray-900 text-white rounded-[2.5rem] p-8 shadow-xl flex flex-col justify-between relative overflow-hidden"
           >
-            <div>
-              <div className="flex justify-between items-start mb-6">
-                <div className="p-2.5 bg-white/10 rounded-xl">
-                  <Briefcase size={20} />
-                </div>
-                <span className="text-[10px] font-bold uppercase bg-blue-500 px-3 py-1 rounded-full tracking-wider">
-                  {filter === "all" ? "Workload" : `${filter}'s leads`}
-                </span>
-              </div>
-              <p className="text-[11px] font-medium text-gray-400 uppercase tracking-[0.15em] mb-1">
-                Total Assigned Leads
-              </p>
-              <h2 className="text-5xl font-black">{stats.totalAssigned}</h2>
+            <div className="absolute top-0 right-0 p-4 opacity-10">
+              <Briefcase size={120} className="-rotate-12" />
             </div>
 
-            <div className="mt-6">
-              <div className="flex justify-between text-[10px] mb-1 text-gray-400 font-bold uppercase">
-                <span>Data Freshness</span>
-                <span>Live</span>
+            <div className="relative z-10">
+              <div className="flex justify-between items-start mb-8">
+                <div className="p-3 bg-white/10 rounded-2xl backdrop-blur-md border border-white/5">
+                  <Briefcase size={24} className="text-blue-400" />
+                </div>
+                <span className="text-[10px] font-black uppercase bg-blue-500 px-4 py-1.5 rounded-full tracking-[0.1em] shadow-lg shadow-blue-500/20">
+                  {filter === "all" ? "Total Workload" : `${filter}'s focus`}
+                </span>
               </div>
-              <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+
+              <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">
+                Leads to Process
+              </p>
+              <h2 className="text-6xl font-black tracking-tighter italic">
+                {stats.totalAssigned || 0}
+              </h2>
+            </div>
+
+            <div className="mt-10 relative z-10">
+              <div className="flex justify-between text-[10px] mb-2 text-gray-400 font-black uppercase tracking-widest">
+                <span>Syncing Efficiency</span>
+                <span className="text-blue-400 animate-pulse">● Live</span>
+              </div>
+              <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: "100%" }}
-                  className="h-full bg-blue-500"
-                ></motion.div>
+                  transition={{ duration: 1.5 }}
+                  className="h-full bg-gradient-to-r from-blue-600 to-blue-400"
+                />
               </div>
             </div>
           </motion.div>
 
-          <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {/* Right Status Grid */}
+          <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <StatusBox
               label="Interested"
               value={stats.interested}
-              icon={<Target size={20} className="text-emerald-500" />}
-              color="bg-emerald-50"
+              icon={<Target size={20} />}
+              color="bg-emerald-50 text-emerald-600"
             />
             <StatusBox
               label="Follow-up"
               value={stats.followUp}
-              icon={<PhoneCall size={20} className="text-amber-500" />}
-              color="bg-amber-50"
+              icon={<PhoneCall size={20} />}
+              color="bg-amber-50 text-amber-600"
+            />
+            <StatusBox
+              label="Callback"
+              value={stats.callBackDue}
+              icon={<History size={20} />}
+              color="bg-violet-50 text-violet-600"
             />
             <StatusBox
               label="Pending"
               value={stats.pending}
-              icon={<Clock size={20} className="text-blue-500" />}
-              color="bg-blue-50"
-            />
-            <StatusBox
-              label="Not Interested"
-              value={stats.notInterested}
-              icon={<AlertCircle size={20} className="text-red-500" />}
-              color="bg-red-50"
+              icon={<Clock size={20} />}
+              color="bg-blue-50 text-blue-600"
             />
             <StatusBox
               label="Closed"
               value={stats.closed}
-              icon={<CheckCircle size={20} className="text-indigo-500" />}
-              color="bg-indigo-50"
+              icon={<CheckCircle size={20} />}
+              color="bg-indigo-50 text-indigo-600"
+            />
+            <StatusBox
+              label="Busy"
+              value={stats.busy}
+              icon={<UserMinus size={20} />}
+              color="bg-orange-50 text-orange-600"
+            />
+            <StatusBox
+              label="Not Picked"
+              value={stats.notPicked}
+              icon={<PhoneOff size={20} />}
+              color="bg-rose-50 text-rose-600"
+            />
+            <StatusBox
+              label="Switch Off"
+              value={stats.switchOff}
+              icon={<PowerOff size={20} />}
+              color="bg-gray-100 text-gray-600"
+            />
+            <StatusBox
+              label="Invalid"
+              value={stats.invalidNumber}
+              icon={<AlertOctagon size={20} />}
+              color="bg-red-50 text-red-600"
             />
           </div>
         </div>

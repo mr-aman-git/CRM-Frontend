@@ -124,7 +124,7 @@ const Dashboard = () => {
               </button>
             </Link>
 
-            <Link to="/" className="flex-1">
+            <Link to="/system-audit" className="flex-1">
               <button className="w-full bg-indigo-500/30 text-white border border-white/20 px-6 py-4 rounded-2xl font-bold text-sm backdrop-blur-md hover:bg-white/10 transition-all flex items-center justify-center gap-2 group">
                 <ShieldCheck size={18} className="opacity-70" />
                 System Audit

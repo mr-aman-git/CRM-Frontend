@@ -142,7 +142,7 @@ const DuplicateLeadsModal = ({ isOpen, onClose }) => {
                             </span>
                           </td>
                           <td className="p-5 text-right">
-                            <div className="flex justify-end gap-2">
+                            {/* <div className="flex justify-end gap-2">
                               <button
                                 className="p-2 text-blue-600 hover:bg-blue-100 rounded-xl transition-all"
                                 title="View Details"
@@ -155,7 +155,7 @@ const DuplicateLeadsModal = ({ isOpen, onClose }) => {
                               >
                                 <Trash2 size={18} />
                               </button>
-                            </div>
+                            </div> */}
                           </td>
                         </tr>
                       ))}

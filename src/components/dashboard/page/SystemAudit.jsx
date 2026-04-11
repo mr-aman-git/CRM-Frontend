@@ -93,7 +93,7 @@ const SystemAudit = () => {
 
           <button
             onClick={() => setIsDuplicateModalOpen(true)}
-            className="w-full text-left outline-none group" 
+            className="w-full text-left outline-none group"
           >
             <AuditItem
               icon={<FileText className="text-blue-500" />}
@@ -101,11 +101,10 @@ const SystemAudit = () => {
               value={audit?.duplicateLeads || 0}
               sub="Potential data redundancy"
               color="border-blue-100"
-             
             />
           </button>
 
-          <AuditItem
+          {/* <AuditItem
             icon={<UserMinus className="text-amber-500" />}
             label="Inactive Staff"
             value={audit?.inactiveStaffList?.length || 0}
@@ -118,7 +117,7 @@ const SystemAudit = () => {
             value="98%"
             sub="Overall database health"
             color="border-emerald-100"
-          />
+          /> */}
         </div>
 
         {/* Action Footer */}

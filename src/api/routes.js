@@ -124,6 +124,16 @@ export const getStaffStats = async (staffId, filter = "all") => {
   }
 };
 
+export const getStaffDashboard = async (filter = "all") => {
+  try {
+    // Backend endpoint: /api/staff/stats?filter=all
+    const response = await axiosInstance.get(`/staff/dashboard?filter=${filter}`);
+    return response.data; // { success: true, data: { ...stats } }
+  } catch (error) {
+    throw error;
+  }
+};
+
 // ------------  LEADS UPLOAD  -----------------------------
 
 export const leadsUpload = async (credentials) => {
