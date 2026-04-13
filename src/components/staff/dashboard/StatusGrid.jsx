@@ -31,7 +31,7 @@ const StatusCard = ({ label, value, icon, color, text }) => (
 const StatusGrid = ({ data }) => {
   return (
     <div className="grid grid-cols-2 gap-4">
-      {/* <StatusCard
+      <StatusCard
         label="Interested"
         value={data?.interested}
         icon={<Target size={18} />}
@@ -100,7 +100,7 @@ const StatusGrid = ({ data }) => {
         icon={<AlertCircle size={18} />}
         color="bg-slate-100"
         text="text-slate-600"
-      /> */}
+      />
     </div>
   );
 };
