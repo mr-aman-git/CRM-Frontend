@@ -112,6 +112,10 @@ const LeadCard = React.memo(({ lead, onEdit }) => {
         onClose={() => setShowHistory(false)}
         remarks={lead.remarks}
         leadName={lead.name}
+        followUpDate={lead.followUpDate}
+        followUpTime={lead.followUpTime}
+        leadStatus={lead.status}
+        leadCallType={lead.callType}
       />
     </>
   );

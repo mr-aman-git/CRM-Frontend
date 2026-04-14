@@ -132,7 +132,7 @@ const SystemAudit = () => {
             </p>
           </div>
           <button
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate("/")}
             className="px-8 py-4 bg-gray-900 text-white rounded-2xl font-bold hover:bg-black transition-all shadow-xl shadow-gray-200 whitespace-nowrap"
           >
             Back to Dashboard

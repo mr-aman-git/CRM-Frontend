@@ -20,6 +20,7 @@ const MainCharts = ({ trendData, branchData }) => {
       leads: item.count,
     })) || [];
   
+console.log("branchData", branchData );
 
   const COLORS = ["#2563eb", "#4f46e5", "#7c3aed", "#db2777", "#ea580c"];
 
@@ -79,10 +80,11 @@ const MainCharts = ({ trendData, branchData }) => {
       {/* Branch Distribution Bar Chart */}
       <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
         <h3 className="text-lg font-black text-gray-900 mb-6">
-          Top Performing Branch
+          Top Performing Cities
         </h3>
         <div className="h-75 w-full">
           <ResponsiveContainer width="100%" height="100%">
+            
             <BarChart data={branchData}>
               <XAxis
                 dataKey="_id"
