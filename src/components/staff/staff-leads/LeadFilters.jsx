@@ -9,9 +9,9 @@ const LeadFilters = ({
 }) => {
   return (
     <div className="bg-white p-4 sticky top-0 z-40 border-b border-gray-100 space-y-3">
-      <h1 className="text-xl font-black text-gray-800 uppercase tracking-tighter">
+      {/* <h1 className="text-xl font-black text-gray-800 uppercase tracking-tighter">
         My Assignments
-      </h1>
+      </h1> */}
 
       <div className="flex flex-col gap-3">
         {/* Search Input */}

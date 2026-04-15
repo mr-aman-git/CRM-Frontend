@@ -79,7 +79,7 @@ const StaffDashboard = () => {
               </div>
             </div>
 
-            <div className="mt-8 flex items-center justify-between">
+            {/* <div className="mt-8 flex items-center justify-between">
               <div className="flex -space-x-2">
                 {[1, 2, 3].map((i) => (
                   <div
@@ -99,17 +99,17 @@ const StaffDashboard = () => {
                   {data?.conversionRate || 0}%
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </motion.div>
 
         {/* GRAPH SECTION */}
-        <div className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-gray-100">
+        {/* <div className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-gray-100">
           <h3 className="text-xs font-black uppercase tracking-widest text-gray-400 mb-4">
             Performance Insights
           </h3>
           <PerformanceChart data={data} />
-        </div>
+        </div> */}
 
         {/* STATUS GRID COMPONENT */}
         <StatusGrid data={data} />

@@ -21,15 +21,16 @@ const UpdateLeadModal = ({ lead, isOpen, onClose, onRefresh }) => {
     setLoading(true);
 
     // Data prepare kar rahe hain backend ke liye
+
     const updateData = {
       status,
       callType,
       comment,
       followUpDate: followUpDate
-        ? followUpDate.toISOString().split("T")[0]
+        ? followUpDate.toLocaleDateString("en-CA")
         : null,
       followUpTime: followUpTime
-        ? followUpTime.toLocaleTimeString([], {
+        ? followUpTime.toLocaleTimeString("en-US", {
             hour: "2-digit",
             minute: "2-digit",
             hour12: true,
