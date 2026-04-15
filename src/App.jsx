@@ -20,6 +20,7 @@ import MyLeads from "./components/staff/staff-leads/MyLeads.jsx";
 import DetailedReport from "./components/dashboard/page/DetailedReport.jsx";
 import SystemAudit from "./components/dashboard/page/SystemAudit.jsx";
 import StaffDashboard from "./components/staff/dashboard/StaffDashboard.jsx";
+import ScheduleLeads from "./components/staff/pages/ScheduleLeads.jsx";
 function App() {
   return (
     <>
@@ -37,13 +38,14 @@ function App() {
               <ProtectedRoute>
                 <DashboardLayout>
                   <Routes>
-                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/admin-dashboard" element={<Dashboard />} />
                     <Route path="/upload-leads" element={<LeadsUpload />} />
                     <Route path="/leads" element={<Leads />} />
                     <Route path="/staff" element={<Staff />} />
                     <Route path="/my-leads" element={<MyLeads />} />
                     <Route path="staff/:id" element={<StaffPage />} />
                     <Route path="/dashboard" element={<StaffDashboard />} />
+                    <Route path="/schedule-leads" element={<ScheduleLeads />} />
                     <Route
                       path="/detailed-report"
                       element={<DetailedReport />}

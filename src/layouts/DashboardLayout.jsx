@@ -21,7 +21,7 @@ const DashboardLayout = ({ children }) => {
   const menuItems = [
     {
       name: "Dashboard",
-      path: "/",
+      path: "/admin-dashboard",
       icon: <HiViewGrid />,
       roles: ["admin"],
     },
@@ -46,13 +46,19 @@ const DashboardLayout = ({ children }) => {
     {
       name: "Staff Manage",
       path: "/staff",
-      icon: <HiUserGroup />, 
+      icon: <HiUserGroup />,
       roles: ["admin"],
     },
     {
       name: "My Leads",
       path: "/my-leads",
-      icon: <HiUserGroup />, 
+      icon: <HiUserGroup />,
+      roles: ["staff"],
+    },
+    {
+      name: "Follow Up",
+      path: "/schedule-leads",
+      icon: <HiUserGroup />,
       roles: ["staff"],
     },
     { name: "Services", path: "/service", icon: <HiCog />, roles: ["admin"] },

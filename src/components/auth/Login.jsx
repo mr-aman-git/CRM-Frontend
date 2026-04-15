@@ -15,7 +15,7 @@ const Login = () => {
     setLoading(true);
     // Loading Toast start
     const toastId = toast.loading("Checking credentials... 🛡️");
-    
+
     try {
       const res = await adminStaffLogin(formData);
 
@@ -33,8 +33,12 @@ const Login = () => {
         autoClose: 2000,
       });
 
+      if (res?.role === "staff") {
+        setTimeout(() => navigate("/dashboard"), 1000);
+      } else {
+        setTimeout(() => navigate("/admin-dashboard"), 1000);
+      }
       // Redirect to Dashboard
-       setTimeout(() => navigate("/"), 1000);
     } catch (err) {
       const errorMsg =
         err.response?.data?.message || "Invalid Username or Password ❌";
