@@ -21,6 +21,7 @@ import DetailedReport from "./components/dashboard/page/DetailedReport.jsx";
 import SystemAudit from "./components/dashboard/page/SystemAudit.jsx";
 import StaffDashboard from "./components/staff/dashboard/StaffDashboard.jsx";
 import ScheduleLeads from "./components/staff/pages/ScheduleLeads.jsx";
+import StatusPage from "./components/staff/pages/StatusPage.jsx";
 function App() {
   return (
     <>
@@ -50,6 +51,7 @@ function App() {
                       path="/detailed-report"
                       element={<DetailedReport />}
                     />
+                    <Route path="status/:status" element={<StatusPage />} />
                     <Route path="/system-audit" element={<SystemAudit />} />
 
                     <Route path="*" element={<Navigate to="/" replace />} />

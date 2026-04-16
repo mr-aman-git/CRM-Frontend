@@ -11,6 +11,7 @@ import {
   PowerOff,
   AlertCircle,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const StatusCard = ({ label, value, icon, color, text }) => (
   <div
@@ -31,76 +32,105 @@ const StatusCard = ({ label, value, icon, color, text }) => (
 const StatusGrid = ({ data }) => {
   return (
     <div className="grid grid-cols-2 gap-4">
-      <StatusCard
-        label="Interested"
-        value={data?.interested}
-        icon={<Target size={18} />}
-        color="bg-emerald-50"
-        text="text-emerald-600"
-      />
-      <StatusCard
-        label="Follow-up"
-        value={data?.followups}
-        icon={<PhoneCall size={18} />}
-        color="bg-amber-50"
-        text="text-amber-600"
-      />
-      <StatusCard
-        label="Pending"
-        value={data?.pendingLeads}
-        icon={<Clock size={18} />}
-        color="bg-blue-50"
-        text="text-blue-600"
-      />
-      <StatusCard
-        label="Closed"
-        value={data?.closedLeads}
-        icon={<CheckCircle size={18} />}
-        color="bg-indigo-50"
-        text="text-indigo-600"
-      />
-      <StatusCard
-        label="Callback"
-        value={data?.callBackDue}
-        icon={<History size={18} />}
-        color="bg-violet-50"
-        text="text-violet-600"
-      />
-      <StatusCard
-        label="Busy"
-        value={data?.busy}
-        icon={<UserMinus size={18} />}
-        color="bg-orange-50"
-        text="text-orange-600"
-      />
-      <StatusCard
-        label="Not Picked"
-        value={data?.notPicked}
-        icon={<PhoneOff size={18} />}
-        color="bg-rose-50"
-        text="text-rose-600"
-      />
-      <StatusCard
-        label="Switch Off"
-        value={data?.switchOff}
-        icon={<PowerOff size={18} />}
-        color="bg-gray-100"
-        text="text-gray-500"
-      />
-      <StatusCard
-        label="Invalid"
-        value={data?.invalidNumber}
-        icon={<AlertOctagon size={18} />}
-        color="bg-red-50"
-        text="text-red-600"
-      />
-      <StatusCard
-        label="Not Int."
-        value={data?.notInterested}
-        icon={<AlertCircle size={18} />}
-        color="bg-slate-100"
-        text="text-slate-600"
-      />
+      <Link to="/status/interested">
+        <StatusCard
+          label="Interested"
+          value={data?.interested}
+          icon={<Target size={18} />}
+          color="bg-emerald-50"
+          text="text-emerald-600"
+        />
+      </Link>
+
+      <Link to="/status/follow-up">
+        <StatusCard
+          label="Follow-up"
+          value={data?.followups}
+          icon={<PhoneCall size={18} />}
+          color="bg-amber-50"
+          text="text-amber-600"
+        />
+      </Link>
+
+      <Link to="/status/pending">
+        <StatusCard
+          label="Pending"
+          value={data?.pendingLeads}
+          icon={<Clock size={18} />}
+          color="bg-blue-50"
+          text="text-blue-600"
+        />
+      </Link>
+
+      <Link to="/status/closed">
+        <StatusCard
+          label="Closed"
+          value={data?.closedLeads}
+          icon={<CheckCircle size={18} />}
+          color="bg-indigo-50"
+          text="text-indigo-600"
+        />
+      </Link>
+
+      <Link to="/status/call-back-due">
+        <StatusCard
+          label="Callback"
+          value={data?.callBackDue}
+          icon={<History size={18} />}
+          color="bg-violet-50"
+          text="text-violet-600"
+        />
+      </Link>
+
+      <Link to="/status/busy">
+        <StatusCard
+          label="Busy"
+          value={data?.busy}
+          icon={<UserMinus size={18} />}
+          color="bg-orange-50"
+          text="text-orange-600"
+        />
+      </Link>
+
+      <Link to="/status/not-picked">
+        <StatusCard
+          label="Not Picked"
+          value={data?.notPicked}
+          icon={<PhoneOff size={18} />}
+          color="bg-rose-50"
+          text="text-rose-600"
+        />
+      </Link>
+
+      <Link to="/status/switch-off">
+        <StatusCard
+          label="Switch Off"
+          value={data?.switchOff}
+          icon={<PowerOff size={18} />}
+          color="bg-gray-100"
+          text="text-gray-500"
+        />
+      </Link>
+
+      <Link to="/status/invalid-number">
+        <StatusCard
+          label="Invalid"
+          value={data?.invalidNumber}
+          icon={<AlertOctagon size={18} />}
+          color="bg-red-50"
+          text="text-red-600"
+        />
+      </Link>
+
+      <Link to="/status/not-interested">
+        <StatusCard
+          label="Not Int."
+          value={data?.notInterested}
+          icon={<AlertCircle size={18} />}
+          color="bg-slate-100"
+          text="text-slate-600"
+        />
+      </Link>
     </div>
   );
 };

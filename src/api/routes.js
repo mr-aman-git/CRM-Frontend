@@ -101,6 +101,15 @@ export const getStaffLeads = async () => {
   }
 };
 
+export const getLeadsByStatus = async (status) => {
+  try {
+    const response = await axiosInstance.get(`/leads/status/${status}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getScheduleLeads = async () => {
   try {
     const response = await axiosInstance.get("/leads/schedule-leads");
